@@ -1,6 +1,7 @@
-require("@nomiclabs/hardhat-ethers");
+// require("@nomiclabs/hardhat-ethers");
 require("hardhat-deploy");
 require("@openzeppelin/hardhat-upgrades");
+require("@nomicfoundation/hardhat-ethers");
 
 module.exports = {
   solidity: {

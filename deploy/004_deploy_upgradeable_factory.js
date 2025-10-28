@@ -11,7 +11,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     kind: "uups",
   });
 
-  await factory.deployed();
+  await factory.waitForDeployment();
   console.log("AuctionFactoryV2 deployed to:", factory.address);
 };
 
