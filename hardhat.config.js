@@ -2,6 +2,10 @@
 require("hardhat-deploy");
 require("@openzeppelin/hardhat-upgrades");
 require("@nomicfoundation/hardhat-ethers");
+require("@nomicfoundation/hardhat-ignition");
+
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
 
 module.exports = {
   solidity: {
@@ -14,13 +18,14 @@ module.exports = {
     },
   },
   networks: {
-    localhost: {
-      url: "http://127.0.0.1:8545",
-    },
     sepolia: {
-      url: process.env.SEPOLIA_RPC_URL || "",
-      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      url: process.env.SEPOLIA_RPC_URL,
+      accounts: [process.env.PRIVATE_KEY]
     },
+    // 你也可以配置本地网络用于测试
+    localhost: {
+      chainId: 31337,
+    }
   },
   namedAccounts: {
     deployer: {
