@@ -11,22 +11,32 @@ describe("NFT Auction Market", function () {
   let bidder2;
 
   beforeEach(async function () {
-    [owner, seller, bidder1, bidder2] = await ethers.getSigners();
+   [owner, seller, bidder1, bidder2] = await ethers.getSigners();
+   console.log("Deploying contracts with the owner.address:", owner.address);
+   console.log("Deploying contracts with the seller.address:", seller.address);
+   console.log("Deploying contracts with the bidder1.address:", bidder1.address);
+   console.log("Deploying contracts with the bidder1.address:", bidder1.address);
 
-    // 部署 NFT 合约
-    const MyNFT = await ethers.getContractFactory("MyNFT");
-    nft = await MyNFT.deploy();
-    await nft.deployed();
 
-    // 部署拍卖工厂
-    const AuctionFactory = await ethers.getContractFactory("AuctionFactory");
-    auctionFactory = await AuctionFactory.deploy();
-    await auctionFactory.deployed();
+  // 部署 NFT 合约
+  const MyNFT = await ethers.getContractFactory("MyNFT");
+  nft = await MyNFT.deploy();
+  await nft.waitForDeployment();
+  
+  const nftAddress = await nft.getAddress();
+  console.log("NFT deployed at:", nftAddress);
 
-    // 部署价格预言机
-    const PriceConsumer = await ethers.getContractFactory("PriceConsumer");
-    priceConsumer = await PriceConsumer.deploy();
-    await priceConsumer.deployed();
+  // 部署拍卖工厂
+  const AuctionFactory = await ethers.getContractFactory("AuctionFactory");
+  auctionFactory = await AuctionFactory.deploy();
+  await auctionFactory.waitForDeployment();
+  console.log("AuctionFactory deployed at:", await auctionFactory.getAddress());
+
+  // 部署价格预言机
+  const PriceConsumer = await ethers.getContractFactory("PriceConsumer");
+  priceConsumer = await PriceConsumer.deploy();
+  await priceConsumer.waitForDeployment();
+  console.log("PriceConsumer deployed at:", await priceConsumer.getAddress());
   });
 
   describe("NFT Contract", function () {
