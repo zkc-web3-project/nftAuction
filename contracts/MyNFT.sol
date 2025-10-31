@@ -10,11 +10,17 @@ contract MyNFT is ERC721, Ownable {
 
     constructor() ERC721("MyNFT", "MNFT") Ownable(msg.sender) {}
 
+    //NFT铸造
     function mint(address to) public returns (uint256) {
         _tokenIds++;
         uint256 newTokenId = _tokenIds;
         _mint(to, newTokenId);
         return newTokenId;
+    }
+    //NFT转移
+    function transferNFT(address from, address to, uint256 tokenId) public onlyOwner{
+        require(ownerOf(tokenId) == from, "You are not the owner of this NFT");
+        _transfer(from, to, tokenId);
     }
 
     function getCurrentTokenId() public view returns (uint256) {
