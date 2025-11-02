@@ -22,7 +22,7 @@ contract AuctionFactoryV2 is Initializable, UUPSUpgradeable, OwnableUpgradeable 
     }
 
     function initialize() initializer public {
-        __Ownable_init();
+        __Ownable_init(msg.sender);
         __UUPSUpgradeable_init();
         feePercentage = 100; // 1% 手续费
         feeRecipient = msg.sender;
